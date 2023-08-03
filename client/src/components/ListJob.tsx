@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import nike from "../assets/nike.png"
+import axios from "axios"
 
 interface HotelData {
   name: any;
@@ -7,22 +8,42 @@ interface HotelData {
   innerText: any;
 }
 
+
+
 function ListJob() {
   const [newJob, setNewJob] = useState({});
 
 
 
-  async function createNewHotel(e: any) {
+  async function createNewJob(e: any) {
     const { name, value, innerText } = e.target;
 
     setNewJob({
       ...newJob,
-      [name !== undefined ? name : "discount"]:
+      [name !== undefined ? name : "remote"]:
         value !== undefined ? value.toLowerCase() : innerText,
     });
 
     console.log(newJob);
   }
+
+  async function ListJob(e:any){
+
+    e.preventDefault();
+    try {
+      console.log("response: ");
+      const response = await axios.post("http://localhost:3001/list", {
+        newJob: newJob,
+      });
+
+      console.log("response: ", response.data);
+    } catch (error: any) {
+      console.log(error.message);
+    }
+  }
+
+
+
 
 //   async function sendNewHotelInformation(e: any) {
 //     e.preventDefault();
@@ -40,7 +61,7 @@ function ListJob() {
 //   }
 
   return (
-    <div className="border-2 border-black h-full w-full bg-yellow-200 flex justify-center items-center">
+    <div className="h-full w-full bg-yellow-200 flex justify-center items-center">
       <section className="bg-gray-100">
         <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 gap-x-16 gap-y-8 lg:grid-cols-5">
@@ -52,6 +73,7 @@ function ListJob() {
               <form
                 action=""
                 className="space-y-4"
+                onSubmit={ListJob}
               >
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <label className="sr-only" htmlFor="name">
@@ -59,11 +81,11 @@ function ListJob() {
                   </label>
                   <input
                     className="w-full rounded-lg border-gray-200 p-3 text-sm"
-                    placeholder="Job Title"
+                    placeholder="jobTitle"
                     type="text"
-                    name="name"
+                    name="jobTitle"
                     id="name"
-                    onChange={createNewHotel}
+                    onChange={createNewJob}
                   />
                   <div>
                     <label className="sr-only" htmlFor="type">
@@ -73,9 +95,9 @@ function ListJob() {
                       className="w-full rounded-lg border-gray-200 p-3 text-sm "
                       placeholder="type"
                       type="text"
-                      name="rating"
+                      name="type"
                       id="email"
-                      onChange={createNewHotel}
+                      onChange={createNewJob}
                     />
                   </div>
                 </div>
@@ -91,7 +113,7 @@ function ListJob() {
                       type="text"
                       name="company"
                       id="email"
-                      onChange={createNewHotel}
+                      onChange={createNewJob}
                     />
                   </div>
 
@@ -103,9 +125,9 @@ function ListJob() {
                       className="w-full rounded-lg border-gray-200 p-3 text-sm"
                       placeholder="Location"
                       type="text"
-                      name="Location"
+                      name="location"
                       id="phone"
-                      onChange={createNewHotel}
+                      onChange={createNewJob}
                     />
                   </div>
                 </div>
@@ -116,11 +138,11 @@ function ListJob() {
                       className="peer sr-only"
                       id="option1"
                       type="radio"
-                      name="discount"
+                      name="remote"
                     />
 
                     <label
-                      onClick={createNewHotel}
+                      onClick={createNewJob}
                       htmlFor="option1"
                       className="block w-full rounded-lg border border-gray-200 p-3 cursor-pointer hover:border-black peer-checked:border-black peer-checked:bg-black peer-checked:text-white bg-purple-400 text-white"
                     >
@@ -133,11 +155,11 @@ function ListJob() {
                       className="peer sr-only"
                       id="option2"
                       type="radio"
-                      name="discount"
+                      name="remote"
                     />
 
                     <label
-                      onClick={createNewHotel}
+                      onClick={createNewJob}
                       htmlFor="option2"
                       className="block w-full rounded-lg border border-gray-200 p-3 cursor-pointer hover:border-black peer-checked:border-black peer-checked:bg-black peer-checked:text-white bg-purple-400 text-white"
                     >
@@ -163,16 +185,16 @@ function ListJob() {
 
                     <input
                       type="text"
-                      name="price"
-                      onChange={createNewHotel}
+                      name="salaryA"
+                      onChange={createNewJob}
                       id="price"
                       className="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       placeholder="0.00"
                       />
                     <input
                       type="text"
-                      name="price"
-                      onChange={createNewHotel}
+                      name="salaryB"
+                      onChange={createNewJob}
                       id="price"
                       className="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       placeholder="0.00"
