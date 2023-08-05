@@ -5,7 +5,6 @@ import Jobs from './Jobs'
 function Home() {
   return (
     <div>
-        <Search/>
         <Jobs/>
     </div>
   )
