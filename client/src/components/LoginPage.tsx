@@ -1,11 +1,15 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { json, useNavigate, useSearchParams } from "react-router-dom";
+import { useDispatch } from "react-redux/es/exports";
+import { setSigned } from "../Redux/singedReducer";
 
 function LoginPage() {
   const navigate = useNavigate();
 
   const [loginInfo, setLoginInfo] = useState({});
+
+  const dispatch = useDispatch();
 
   function postLoginState(e: any) {
     const { name, value } = e.target;
@@ -17,19 +21,28 @@ function LoginPage() {
 
   async function login(e: any) {
     e.preventDefault();
+
     try {
       console.log("response: ");
       const response = await axios.post("http://localhost:3001/login", {
         loginInfo: loginInfo,
       });
 
-      console.log("response: ", response.data);
+      console.log("responsed: ", response.data.success);
+      if (!response.data.success) {
+        dispatch(setSigned(response.data.success));
+      } else {
+        let whoLogged = { isLogged: true, user: response.data.user };
+        let whoLoggedObjectString = JSON.stringify(whoLogged);
+        localStorage.setItem("loggedUser", whoLoggedObjectString);
+        dispatch(setSigned(response.data.success));
+      }
     } catch (error: any) {
       console.log(error.message);
     }
   }
   return (
-    <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8 bg-white">
+    <div className="flex min-h-full flex-col justify-center px-6 py-1222 lg:px-8 bg-white h-full">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
           Sign in to your account

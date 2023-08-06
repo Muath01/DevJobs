@@ -72,6 +72,26 @@ app.post("/register", async (req, res) => {
   }
 });
 
+app.post("/save", async (req, res) => {
+  // console.log(req.body.user);
+  const {
+    _id: id,
+    jobTitle,
+    type,
+    company,
+    location,
+    salaryA,
+    salaryB,
+    remote,
+  } = req.body.job;
+
+  const user = req.body.user;
+
+  console.log(user);
+
+  // console.log(id, jobTitle);
+});
+
 app.post("/login", async (req, res) => {
   const { username, email, password } = req.body.loginInfo;
 
@@ -89,7 +109,7 @@ app.post("/login", async (req, res) => {
     ) {
       console.log("Loggin in ");
 
-      res.json({ success: true });
+      res.json({ success: true, user: user[0].username });
     } else {
       console.log("can't login");
       res.json({ success: false });

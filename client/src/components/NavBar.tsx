@@ -4,6 +4,27 @@ import { Link } from "react-router-dom";
 function NavBar() {
   const [hidden, setHidden] = useState(true);
 
+  //function to set the loggedin status to false
+  function signOut() {
+    // Retrieve the string from local storage
+    const isLoggedIn = localStorage.getItem("loggedUser");
+
+    // type assertion aviod null > string error
+    const parsed = JSON.parse(isLoggedIn!) as {
+      isLogged: boolean;
+      user: string;
+    };
+
+    //
+    parsed.isLogged = false;
+
+    // stringify that parse data
+    const updatedObjectString = JSON.stringify(parsed);
+
+    // store back to local storage
+    localStorage.setItem("loggedUser", updatedObjectString);
+  }
+
   return (
     <div className="relative">
       <nav className="bg-white border-gray-200 dark:bg-gray-900">
@@ -80,11 +101,15 @@ function NavBar() {
               </li>
               <li>
                 <Link
-                  onClick={() => setHidden(!hidden)}
+                  onClick={() => {
+                    signOut();
+                    setHidden(!hidden);
+                    location.reload();
+                  }}
                   to="#"
                   className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-purple-700 md:p-0 dark:text-white md:dark:hover:text-purple-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                 >
-                  Contact
+                  sign out
                 </Link>
               </li>
             </ul>
