@@ -1,16 +1,26 @@
 import axios from "axios";
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 function LoginPage() {
   const navigate = useNavigate();
+
+  const [loginInfo, setLoginInfo] = useState({});
+
+  function postLoginState(e: any) {
+    const { name, value } = e.target;
+    setLoginInfo({
+      ...loginInfo,
+      [name]: value,
+    });
+  }
 
   async function login(e: any) {
     e.preventDefault();
     try {
       console.log("response: ");
       const response = await axios.post("http://localhost:3001/login", {
-        newJob: "newJob",
+        loginInfo: loginInfo,
       });
 
       console.log("response: ", response.data);
@@ -27,7 +37,7 @@ function LoginPage() {
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form className="space-y-6" action="#" method="POST">
+        <form className="space-y-6" action="#" method="POST" onSubmit={login}>
           <div>
             <label
               htmlFor="email"
@@ -42,6 +52,7 @@ function LoginPage() {
                 type="email"
                 autoComplete="email"
                 required
+                onChange={(e) => postLoginState(e)}
                 className="block w-full rounded-md border-0 pl-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
@@ -70,6 +81,7 @@ function LoginPage() {
                 name="password"
                 type="password"
                 autoComplete="current-password"
+                onChange={(e) => postLoginState(e)}
                 required
                 className="block w-full rounded-md border-0 pl-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />

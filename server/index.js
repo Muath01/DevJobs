@@ -49,18 +49,11 @@ app.post("/register", async (req, res) => {
 
   try {
     const user = await UserModel.find({ username: username });
-    // console.log("user: ", user[0].username);
-    console.log("user: ", user);
-
-    if (user[0] != undefined) {
-      console.log("undefind clear");
-    } else {
-      console.log("it is undefined");
-    }
 
     if (
-      user[0] == undefined ||
-      (user[0].username != username && user[0].email != email)
+      user.length == 0 &&
+      user[0]?.username != username &&
+      user[0]?.email != email
     ) {
       console.log("Creating new users... ");
       const createNewUser = await UserModel({
@@ -70,12 +63,37 @@ app.post("/register", async (req, res) => {
       });
 
       await createNewUser.save();
-      res.json("new user has been created...");
+      res.json({ success: true });
     } else {
-      res.json("coudn't create a new user");
+      res.json({ success: false });
     }
-    // console.log("userExist: ", user.username == username);
-    // res.json(user);
+  } catch (error) {
+    console.log("error unable to post stuff");
+  }
+});
+
+app.post("/login", async (req, res) => {
+  const { username, email, password } = req.body.loginInfo;
+
+  try {
+    const user = await UserModel.find({ email: email });
+
+    // console.log("user: ", user[0].email, "userpass: ", user[0].password);
+
+    // console.log("emai: ", email, "password: ", password);
+
+    if (
+      user.length != 0 &&
+      user[0].email == email &&
+      user[0].password == password
+    ) {
+      console.log("Loggin in ");
+
+      res.json({ success: true });
+    } else {
+      console.log("can't login");
+      res.json({ success: false });
+    }
   } catch (error) {
     console.log("error: ", error.message);
   }
