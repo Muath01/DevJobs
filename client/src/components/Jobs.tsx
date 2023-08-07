@@ -5,35 +5,33 @@ import axios from "axios";
 import { BsSearch } from "react-icons/bs";
 import { BsBookmarkHeart } from "react-icons/bs";
 interface JobSchema {
-  data: {
-    jobTitle: String;
-    type: String;
-    company: String;
-    location: String;
-    remote: Boolean;
-    salaryA: Number;
-    salaryB: Number;
-  }[];
+  jobTitle: String;
+  type: String;
+  company: String;
+  location: String;
+  remote: Boolean;
+  salaryA: Number;
+  salaryB: Number;
 }
 
 function Jobs() {
-  const [jobsList, setJobsList] = useState<JobSchema>();
+  const [jobsList, setJobsList] = useState<JobSchema[]>();
+  const [search, setSearch] = useState("");
+  const [citySearch, setCitySearch] = useState("");
+
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   async function bringJobsList() {
     console.log("hello");
 
     try {
-      const response: JobSchema = await axios.get(
-        "http://localhost:3001/jobs",
-        {
-          params: {},
-        }
-      );
+      const response = await axios.get("http://localhost:3001/jobs", {
+        params: {},
+      });
 
       console.log("response: ", response.data);
 
-      setJobsList(response);
+      setJobsList(response.data);
       // console.log("JobList: ", jobsList!.data)
       console.log("JobListz: ", jobsList);
     } catch (err) {
@@ -77,10 +75,12 @@ function Jobs() {
           </p>
           <input
             ref={inputRef}
+            onChange={(e) => setSearch(e.target.value)}
             placeholder="Search for job"
             className="p-5 sm:w-[100%] w-[80%] outline-none "
           />
           <input
+            onChange={(e) => setCitySearch(e.target.value)}
             placeholder="filter by location"
             className="p-5 rounded-r-sm sm:w-[100%] w-[80%] outline-none border-l border-black md:block hidden"
           />
@@ -100,33 +100,48 @@ function Jobs() {
         "
         >
           {jobsList &&
-            jobsList.data.map((job) => (
-              <div className="bg-white m-2 mt-14 h-[15rem] rounded-sm  relative ">
-                <img
-                  src={nike}
-                  className="w-1/6 absolute top-[-35px] left-[50%] translate-x-[-50%] border border-black"
-                />
-                <div className=" h-[60%]  w-full absolute bottom-7  translate-y-[-5%] flex flex-col gap-1 items-start px-10">
-                  <h1 className=" text-[16px]  text-gray-400 mb-1">
-                    {job.type}
-                  </h1>
-                  <h1 className=" text-[24px]">{job.jobTitle}</h1>
-                  <h1 className=" text-[18px] text-gray-400 my-1">
-                    {job.company}
-                  </h1>
+            jobsList
+              .filter((job) => {
+                if (search.toLowerCase() === "") {
+                  return job;
+                } else {
+                  const cityMatch = job.location
+                    .toLowerCase()
+                    .startsWith(citySearch.toLowerCase());
+                  const jobTitleMatch = job.jobTitle
+                    .toLowerCase()
+                    .startsWith(search.toLowerCase());
 
-                  <h1 className=" text-[16px] text-blue-400 font-bold absolute bottom-0">
-                    {job.remote ? "Remote" : "in office"} {job.location}
-                  </h1>
-                  <p
-                    onClick={(e) => saveJob(e, job)}
-                    className="absolute right-10 bottom-0 text-black cursor-pointer"
-                  >
-                    <BsBookmarkHeart size={30} />
-                  </p>
+                  return cityMatch && jobTitleMatch;
+                }
+              })
+              .map((job) => (
+                <div className="bg-white m-2 mt-14 h-[15rem] rounded-sm  relative ">
+                  <img
+                    src={nike}
+                    className="w-1/6 absolute top-[-35px] left-[50%] translate-x-[-50%] border border-black"
+                  />
+                  <div className=" h-[60%]  w-full absolute bottom-7  translate-y-[-5%] flex flex-col gap-1 items-start px-10">
+                    <h1 className=" text-[16px]  text-gray-400 mb-1">
+                      {job.type}
+                    </h1>
+                    <h1 className=" text-[24px]">{job.jobTitle}</h1>
+                    <h1 className=" text-[18px] text-gray-400 my-1">
+                      {job.company}
+                    </h1>
+
+                    <h1 className=" text-[16px] text-blue-400 font-bold absolute bottom-0">
+                      {job.remote ? "Remote" : "in office"} {job.location}
+                    </h1>
+                    <p
+                      onClick={(e) => saveJob(e, job)}
+                      className="absolute right-5 bottom-0 cursor-pointer text-red-600 hover:text-red-700"
+                    >
+                      <BsBookmarkHeart size={30} />
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
         </div>
       </div>
     </>
