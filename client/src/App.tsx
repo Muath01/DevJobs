@@ -10,25 +10,23 @@ import LoginPage from "./components/LoginPage.tsx";
 import Registration from "./components/Registration.tsx";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "./Redux/store.tsx";
+import SavedJobs from "./components/SavedJobs.tsx";
 
 function App() {
   const signed = useSelector((state: RootState) => state.setSigned);
 
   return (
     <>
-      {!signed ? (
-        <LoginPage />
-      ) : (
-        <div className="w-full h-[91%] absolute ">
-          <NavBar />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/list" element={<ListJob />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<Registration />} />
-          </Routes>
-        </div>
-      )}
+      <div className="w-full h-[91%] absolute ">
+        <NavBar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/list" element={<ListJob />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<Registration />} />
+          <Route path="/saved" element={<SavedJobs />} />
+        </Routes>
+      </div>
     </>
   );
 }

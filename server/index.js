@@ -4,6 +4,9 @@ import mongoose from "mongoose";
 import { UserModel } from "./models/Users.js";
 import { JobModel } from "./models/Job.js";
 import bodyParser from "body-parser";
+import { SavedJobsModel } from "./models/SavedJobs.js";
+import { ObjectId } from "mongodb";
+
 const app = express();
 
 app.use(express.json());
@@ -22,9 +25,16 @@ mongoose.connect(
 //   console.log("error", err);
 // });
 
-app.get("/hello", async (req, res) => {
-  res.json("byebye");
-});
+// SavedJobsModel.deleteMany({})
+//   .then(() => {
+//     console.log("All documents deleted successfully.");
+//   })
+//   .catch((err) => {
+//     console.log("error", err);
+//   });
+// app.get("/hello", async (req, res) => {
+//   res.json("byebye");
+// });
 
 app.get("/jobs", async (req, res) => {
   console.log("hereeree");
@@ -38,6 +48,27 @@ app.get("/jobs", async (req, res) => {
   } catch (error) {
     console.log(error.message);
     res.status(500).json({ error: "An error occured while fetching jobs" });
+  }
+});
+
+app.get("/saved", async (req, res) => {
+  try {
+    const user = req.query.body;
+
+    const jobs = await SavedJobsModel.find({ user: user });
+
+    const data = await Promise.all(
+      jobs.map(async (job) => {
+        const response = await JobModel.findOne(new ObjectId(job.jobID));
+        return response;
+      })
+    );
+
+    console.log("data: ", data);
+
+    res.send(data);
+  } catch (err) {
+    console.log("error: ", err.message);
   }
 });
 
@@ -85,9 +116,19 @@ app.post("/save", async (req, res) => {
     remote,
   } = req.body.job;
 
-  const user = req.body.user;
+  try {
+    const user = req.body.user;
+    console.log(id);
 
-  console.log(user);
+    const postJobs = await SavedJobsModel({
+      jobID: id,
+      user: user,
+    });
+
+    await postJobs.save();
+  } catch (err) {
+    console.log("err: ", err.message);
+  }
 
   // console.log(id, jobTitle);
 });

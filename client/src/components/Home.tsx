@@ -15,7 +15,7 @@ function Home() {
     user: string;
   };
 
-  console.log("bbbb, ", parsed);
+  console.log("Home: ", parsed.isLogged);
 
   return (
     <div className="h-full relative ">
