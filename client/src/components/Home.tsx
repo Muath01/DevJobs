@@ -1,5 +1,3 @@
-import React from "react";
-import Search from "./Search";
 import Jobs from "./Jobs";
 import { RootState } from "../Redux/store";
 import { useSelector } from "react-redux";

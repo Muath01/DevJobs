@@ -1,57 +1,12 @@
-import axios from "axios";
-import React, { useRef, useState } from "react";
 import nike from "../assets/nike.png";
 import { useSelector } from "react-redux";
 
-import { BsBookmarkHeart, BsSearch } from "react-icons/bs";
 import { RootState } from "../Redux/store";
 
-interface JobSchema {
-  data: {
-    jobTitle: String;
-    type: String;
-    company: String;
-    location: String;
-    remote: Boolean;
-    salaryA: Number;
-    salaryB: Number;
-  }[];
-}
-
 function SavedJobs() {
-  const [savedJobList, setSavedJobList] = useState<JobSchema>();
-
   const test = useSelector((state: RootState) => state.saveJobs);
 
   console.log("test: ", test);
-
-  const inputRef = useRef<HTMLInputElement | null>(null);
-
-  async function getSavedJobs() {
-    try {
-      const isLoggedIn = localStorage.getItem("loggedUser");
-      const parsed = JSON.parse(isLoggedIn!) as {
-        isLogged: boolean;
-        user: string;
-      };
-
-      const response: JobSchema = await axios.get(
-        "http://localhost:3001/saved",
-        {
-          params: {
-            body: parsed.user,
-          },
-        }
-      );
-      setSavedJobList(response);
-      console.log("dddd: ", savedJobList);
-    } catch (error) {}
-  }
-
-  function focusInput(e: any) {
-    if (!inputRef.current) return;
-    inputRef.current.focus();
-  }
 
   return (
     <>

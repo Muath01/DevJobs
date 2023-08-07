@@ -1,6 +1,5 @@
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import nike from "../assets/nike.png";
-import { jobs } from "../assets/jobs";
 import axios from "axios";
 import { BsSearch } from "react-icons/bs";
 import { BsBookmarkHeart } from "react-icons/bs";
@@ -39,15 +38,15 @@ function Jobs() {
     }
   }
 
-  function focusInput(e: any) {
+  function focusInput() {
     if (!inputRef.current) return;
     inputRef.current.focus();
   }
 
-  function saveJob(e: any, job: any) {
+  function saveJob(job: any) {
     console.log("job: ", job);
     try {
-      const response = axios.post("http://localhost:3001/save", {
+      axios.post("http://localhost:3001/save", {
         job: job,
         user: loggedUser(),
       });
@@ -68,7 +67,7 @@ function Jobs() {
       <div className="bg-purple-300 relative h-[12rem] w-full border md:rounded-bl-[20%] md:rounded-br-[20%] ">
         <div className=" absolute  flex left-1/2 translate-x-[-50%] bottom-[-30px] w-[80%] justify-center">
           <p
-            onClick={(e) => focusInput(e)}
+            onClick={() => focusInput()}
             className="p-5 bg-white rounded-l-sm md:block hidden"
           >
             <BsSearch size={20} />
@@ -134,7 +133,7 @@ function Jobs() {
                       {job.remote ? "Remote" : "in office"} {job.location}
                     </h1>
                     <p
-                      onClick={(e) => saveJob(e, job)}
+                      onClick={() => saveJob(job)}
                       className="absolute right-5 bottom-0 cursor-pointer text-red-600 hover:text-red-700"
                     >
                       <BsBookmarkHeart size={30} />

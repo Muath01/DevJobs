@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux/es/exports";
 import { setJobs } from "../Redux/jobReducer";
@@ -18,8 +18,6 @@ interface JobSchema {
 
 function NavBar() {
   const [hidden, setHidden] = useState(true);
-
-  const [savedJobList, setSavedJobList] = useState<JobSchema>();
 
   const dispatch = useDispatch();
 
@@ -40,7 +38,6 @@ function NavBar() {
         }
       );
       console.log("MyRES: ", response);
-      setSavedJobList(response);
       dispatch(setJobs(response.data));
     } catch (error) {}
   }

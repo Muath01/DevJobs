@@ -1,12 +1,6 @@
 import axios from "axios";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-interface User {
-  username: String;
-  email: String;
-  password: String;
-}
 
 function Registration() {
   const [newUser, setNewUser] = useState<any>({});
@@ -23,9 +17,9 @@ function Registration() {
     console.log("newuser: ", newUser);
   }
 
-  function register(e: any) {
+  function register() {
     try {
-      const response = axios.post("http://localhost:3001/register", {
+      axios.post("http://localhost:3001/register", {
         userSignUpInfo: newUser,
       });
     } catch (err: any) {
@@ -112,14 +106,14 @@ function Registration() {
             <button
               type="button"
               className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              onClick={(e) => {
-                register(e);
+              onClick={() => {
+                register();
               }}
             >
               Sign Up
             </button>
             <button
-              onClick={(e) => {
+              onClick={() => {
                 navigate("/login");
               }}
               type="button"

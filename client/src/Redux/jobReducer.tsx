@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
 
 export interface jobSchema {
   jobTitle: String;
@@ -19,6 +18,7 @@ export const jobReducer = createSlice({
   reducers: {
     setJobs: (state, action) => {
       console.log("action: ", action.payload);
+      console.log(state);
 
       return [...action.payload];
     },

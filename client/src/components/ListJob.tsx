@@ -1,19 +1,8 @@
-import React, { useState } from "react";
-import nike from "../assets/nike.png"
-import axios from "axios"
-
-interface HotelData {
-  name: any;
-  value: any;
-  innerText: any;
-}
-
-
+import { useState } from "react";
+import axios from "axios";
 
 function ListJob() {
   const [newJob, setNewJob] = useState({});
-
-
 
   async function createNewJob(e: any) {
     const { name, value, innerText } = e.target;
@@ -27,8 +16,7 @@ function ListJob() {
     console.log(newJob);
   }
 
-  async function ListJob(e:any){
-
+  async function ListJob(e: any) {
     e.preventDefault();
     try {
       console.log("response: ");
@@ -42,23 +30,20 @@ function ListJob() {
     }
   }
 
+  //   async function sendNewHotelInformation(e: any) {
+  //     e.preventDefault();
+  //     try {
+  //       console.log("response: ");
+  //       const response = await axios.post("http://localhost:3001/newJob", {
+  //         newJob: newJob,
+  //       });
 
-
-
-//   async function sendNewHotelInformation(e: any) {
-//     e.preventDefault();
-//     try {
-//       console.log("response: ");
-//       const response = await axios.post("http://localhost:3001/newJob", {
-//         newJob: newJob,
-//       });
-
-//       console.log("response: ", response.data);
-//       dispatch(setHotel(response.data));
-//     } catch (error: any) {
-//       console.log(error.message);
-//     }
-//   }
+  //       console.log("response: ", response.data);
+  //       dispatch(setHotel(response.data));
+  //     } catch (error: any) {
+  //       console.log(error.message);
+  //     }
+  //   }
 
   return (
     <div className="h-full w-full bg-yellow-200 flex justify-center items-center">
@@ -66,15 +51,11 @@ function ListJob() {
         <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 gap-x-16 gap-y-8 lg:grid-cols-5">
             <div className="lg:col-span-2  border-2 ">
-              <img  className=" h-full object-cover " />
+              <img className=" h-full object-cover " />
             </div>
 
             <div className="rounded-lg bg-white p-8 shadow-lg lg:col-span-3 lg:p-12">
-              <form
-                action=""
-                className="space-y-4"
-                onSubmit={ListJob}
-              >
+              <form action="" className="space-y-4" onSubmit={ListJob}>
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <label className="sr-only" htmlFor="name">
                     Job Title
@@ -166,8 +147,6 @@ function ListJob() {
                       In Office
                     </label>
                   </div>
-
-              
                 </div>
 
                 <div>
@@ -182,24 +161,23 @@ function ListJob() {
                       <span className="text-gray-500 sm:text-sm">$</span>
                     </div>
                     <div className="flex">
-
-                    <input
-                      type="text"
-                      name="salaryA"
-                      onChange={createNewJob}
-                      id="price"
-                      className="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      placeholder="0.00"
+                      <input
+                        type="text"
+                        name="salaryA"
+                        onChange={createNewJob}
+                        id="price"
+                        className="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        placeholder="0.00"
                       />
-                    <input
-                      type="text"
-                      name="salaryB"
-                      onChange={createNewJob}
-                      id="price"
-                      className="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      placeholder="0.00"
+                      <input
+                        type="text"
+                        name="salaryB"
+                        onChange={createNewJob}
+                        id="price"
+                        className="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        placeholder="0.00"
                       />
-                      </div>
+                    </div>
                     <div className="absolute inset-y-0 right-0 flex items-center">
                       <label htmlFor="currency" className="sr-only">
                         Currency
