@@ -2,10 +2,10 @@ import Jobs from "./Jobs";
 import { RootState } from "../Redux/store";
 import { useSelector } from "react-redux";
 import LoginPage from "./LoginPage";
+import NavBar from "./NavBar";
 
 function Home() {
   const { signed } = useSelector((state: RootState) => state.setSigned);
-  console.log(signed);
 
   const isLoggedIn = localStorage.getItem("loggedUser");
   const parsed = JSON.parse(isLoggedIn!) as {
@@ -13,7 +13,7 @@ function Home() {
     user: string;
   };
 
-  console.log("Home: ", parsed.isLogged);
+  console.log("Inside Home... ");
 
   return (
     <div className="h-full relative ">

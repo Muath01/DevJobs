@@ -23,12 +23,10 @@ function LoginPage() {
     e.preventDefault();
 
     try {
-      console.log("response: ");
       const response = await axios.post("http://localhost:3001/login", {
         loginInfo: loginInfo,
       });
 
-      console.log("responsed: ", response.data.success);
       if (!response.data.success) {
         dispatch(setSigned(response.data.success));
       } else {

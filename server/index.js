@@ -42,8 +42,6 @@ app.get("/jobs", async (req, res) => {
   try {
     const jobs = await JobModel.find();
 
-    console.log("jobs: ", jobs);
-
     res.json(jobs);
   } catch (error) {
     console.log(error.message);
@@ -118,14 +116,23 @@ app.post("/save", async (req, res) => {
 
   try {
     const user = req.body.user;
-    console.log(id);
+    // console.log(id);
+
+    const checkForDuplicates = await SavedJobsModel.findOne({
+      jobID: id,
+      user: user,
+    });
+
+    console.log("CheckForDuplicates: ", !checkForDuplicates);
 
     const postJobs = await SavedJobsModel({
       jobID: id,
       user: user,
     });
 
-    await postJobs.save();
+    if (!checkForDuplicates) {
+      await postJobs.save();
+    }
   } catch (err) {
     console.log("err: ", err.message);
   }

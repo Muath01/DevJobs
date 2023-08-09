@@ -24,11 +24,10 @@ function Jobs() {
   const [items, setItems] = useState<jobSchema[]>();
   const [visible, setVisible] = useState<number>(4);
 
-  console.log("On Jobs");
-
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
+    console.log("Inside Job UseEffect");
     fetch("http://localhost:3001/jobs")
       .then((res) => res.json())
       .then((data) => setItems(data));
@@ -37,14 +36,13 @@ function Jobs() {
   }, []);
 
   // async function bringJobsList() {
-  //   console.log("hello");
-
   //   try {
   //     const response = await axios.get("http://localhost:3001/jobs", {
   //       params: {},
   //     });
 
   //     console.log("response: ", response.data);
+  //     console.log("items: ", items);
 
   //     setJobsList(response.data);
   //     // console.log("JobList: ", jobsList!.data)
@@ -60,13 +58,14 @@ function Jobs() {
   }
 
   function saveJob(job: any) {
-    console.log("job: ", job);
     try {
       axios.post("http://localhost:3001/save", {
         job: job,
         user: loggedUser(),
       });
-    } catch (err) {}
+    } catch (err: any) {
+      console.log("err: ", err.message);
+    }
   }
 
   function loggedUser() {
@@ -85,7 +84,7 @@ function Jobs() {
           <div className=" absolute  flex left-1/2 translate-x-[-50%] bottom-[-30px] w-[80%] justify-center">
             <p
               onClick={() => focusInput()}
-              className="p-5 bg-white rounded-l-sm md:block hidden"
+              className="p-5 bg-white rounded-l-sm md:block hidden border-none "
             >
               <BsSearch size={20} />
             </p>
@@ -103,7 +102,7 @@ function Jobs() {
             <div className="bg-white relative flex justify-center items-center w-1/5">
               <button
                 className="p-4 bg-purple-300 hover:bg-purple-400"
-                // onClick={}
+                // onClick={bringJobsList}
               >
                 Search
               </button>
@@ -123,7 +122,6 @@ function Jobs() {
                     search.toLowerCase() == "" &&
                     citySearch.toLowerCase() == ""
                   ) {
-                    console.log("bOTH EMPTY");
                     return job;
                   } else {
                     const cityMatch = job.location
@@ -136,8 +134,11 @@ function Jobs() {
                     return cityMatch && jobTitleMatch;
                   }
                 })
-                .map((job) => (
-                  <div className="bg-white m-2 mt-14 h-[15rem] rounded-sm  relative ">
+                .map((job, index) => (
+                  <div
+                    key={index}
+                    className="bg-white m-2 mt-14 h-[15rem] rounded-sm  relative "
+                  >
                     <img
                       src={nike}
                       className="w-1/6 absolute top-[-35px] left-[50%] translate-x-[-50%] border border-black"

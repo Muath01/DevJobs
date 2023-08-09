@@ -12,6 +12,7 @@ function App() {
     <>
       <div className="w-full h-[91%] absolute ">
         <NavBar />
+
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/DevJobs" element={<Home />} />
