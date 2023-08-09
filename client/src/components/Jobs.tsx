@@ -4,18 +4,18 @@ import axios from "axios";
 import { BsSearch } from "react-icons/bs";
 import { BsBookmarkHeart } from "react-icons/bs";
 import { jobSchema } from "../Redux/jobReducer";
-interface JobSchema {
-  jobTitle: String;
-  type: String;
-  company: String;
-  location: String;
-  remote: Boolean;
-  salaryA: Number;
-  salaryB: Number;
-}
+
+// interface JobSchema {
+//   jobTitle: String;
+//   type: String;
+//   company: String;
+//   location: String;
+//   remote: Boolean;
+//   salaryA: Number;
+//   salaryB: Number;
+// }
 
 function Jobs() {
-  const [jobsList, setJobsList] = useState<JobSchema[]>();
   const [search, setSearch] = useState("");
   const [citySearch, setCitySearch] = useState("");
 
@@ -169,7 +169,7 @@ function Jobs() {
         <div className=" relative mt-20  left-1/2   translate-x-[-50%] flex justify-center items-end  ">
           <button
             className="bg-gray-300  hover:bg-gray-400 border border-blue-200 flex  relative    "
-            onClick={(e) => setVisible((visible) => visible + 4)}
+            onClick={() => setVisible((visible) => visible + 4)}
           >
             Show more...
           </button>

@@ -19,7 +19,7 @@ function ListJob() {
   async function ListJob(e: any) {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:3001/list", {
+      await axios.post("http://localhost:3001/list", {
         newJob: newJob,
       });
     } catch (error: any) {
