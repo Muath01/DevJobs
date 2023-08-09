@@ -8,6 +8,7 @@ import Registration from "./components/Registration.tsx";
 import SavedJobs from "./components/SavedJobs.tsx";
 
 function App() {
+  console.log("on app.tsx");
   return (
     <>
       <div className="w-full h-[91%] absolute ">
