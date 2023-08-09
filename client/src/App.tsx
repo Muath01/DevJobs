@@ -15,9 +15,6 @@ function App() {
 
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/DevJobs" element={<Home />} />
-          <Route path="/devJobs" element={<Home />} />
-          <Route path="/https://muath01.github.io/Devjobs" element={<Home />} />
           <Route path="/list" element={<ListJob />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<Registration />} />
