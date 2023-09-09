@@ -17,9 +17,6 @@ export const jobReducer = createSlice({
   initialState,
   reducers: {
     setJobs: (state, action) => {
-      console.log("action: ", action.payload);
-      console.log(state);
-
       return [...action.payload];
     },
   },

@@ -13,18 +13,14 @@ function Registration() {
       ...newUser,
       [name]: value,
     });
-
-    console.log("newuser: ", newUser);
   }
 
   function register() {
     try {
-      axios.post("http://localhost:3001/register", {
+      axios.post("http://localhost:3001/auth/register", {
         userSignUpInfo: newUser,
       });
-    } catch (err: any) {
-      console.log(err.message);
-    }
+    } catch (err: any) {}
   }
   return (
     <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8 bg-white">

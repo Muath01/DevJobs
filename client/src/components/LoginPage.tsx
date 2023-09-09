@@ -23,7 +23,7 @@ function LoginPage() {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:3001/login", {
+      const response = await axios.post("http://localhost:3001/auth/login", {
         loginInfo: loginInfo,
       });
 
@@ -35,9 +35,7 @@ function LoginPage() {
         localStorage.setItem("loggedUser", whoLoggedObjectString);
         dispatch(setSigned(response.data.success));
       }
-    } catch (error: any) {
-      console.log(error.message);
-    }
+    } catch (error: any) {}
   }
   return (
     <div className="flex min-h-full flex-col justify-center px-6 py-1222 lg:px-8 bg-white h-full">

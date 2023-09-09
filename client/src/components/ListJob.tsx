@@ -12,33 +12,29 @@ function ListJob() {
       [name !== undefined ? name : "remote"]:
         value !== undefined ? value.toLowerCase() : innerText,
     });
-
-    console.log(newJob);
   }
 
   async function ListJob(e: any) {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:3001/list", {
+      await axios.post("http://localhost:3001/job/list", {
         newJob: newJob,
       });
-    } catch (error: any) {
-      console.log(error.message);
-    }
+    } catch (error: any) {}
   }
 
   //   async function sendNewHotelInformation(e: any) {
   //     e.preventDefault();
   //     try {
-  //       console.log("response: ");
+  //
   //       const response = await axios.post("http://localhost:3001/newJob", {
   //         newJob: newJob,
   //       });
 
-  //       console.log("response: ", response.data);
+  //
   //       dispatch(setHotel(response.data));
   //     } catch (error: any) {
-  //       console.log(error.message);
+  //
   //     }
   //   }
 

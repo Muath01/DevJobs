@@ -8,7 +8,6 @@ if (!localStorage.getItem("loggedUser")) {
   let whoLoggedObjectString = JSON.stringify(whoLogged);
   localStorage.setItem("loggedUser", whoLoggedObjectString);
 } else {
-  console.log("there is a logged user");
 }
 export interface signedState {
   signed: Boolean;
@@ -23,8 +22,6 @@ export const signedReducer = createSlice({
   initialState,
   reducers: {
     setSigned: (state, action) => {
-      console.log("action: ", action.payload);
-
       state.signed = action.payload;
     },
   },

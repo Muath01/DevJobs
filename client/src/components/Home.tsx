@@ -11,8 +11,6 @@ function Home() {
 
   useEffect(() => {}, [parsed]);
 
-  console.log("Inside Home... ");
-
   return (
     <div className="h-full relative ">
       {parsed.isLogged ? <Jobs /> : <LoginPage />}

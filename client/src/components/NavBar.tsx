@@ -36,14 +36,14 @@ function NavBar() {
       };
 
       const response: JobSchema = await axios.get(
-        "http://localhost:3001/saved",
+        "http://localhost:3001/arch/saved",
         {
           params: {
             body: parsed.user,
           },
         }
       );
-      console.log("MyRES: ", response);
+
       dispatch(setJobs(response.data));
     } catch (error) {}
   }
@@ -68,8 +68,6 @@ function NavBar() {
     // store back to local storage
     localStorage.setItem("loggedUser", updatedObjectString);
   }
-
-  console.log("NavBarrrrrrrrrrrrrrr....");
 
   return (
     <div className="relative">

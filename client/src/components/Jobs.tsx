@@ -27,12 +27,9 @@ function Jobs() {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
-    console.log("Inside Job UseEffect");
-    fetch("http://localhost:3001/jobs")
+    fetch("http://localhost:3001/job/display")
       .then((res) => res.json())
       .then((data) => setItems(data));
-
-    console.log(items);
   }, []);
 
   // async function bringJobsList() {
@@ -41,14 +38,14 @@ function Jobs() {
   //       params: {},
   //     });
 
-  //     console.log("response: ", response.data);
-  //     console.log("items: ", items);
+  //
+  //
 
   //     setJobsList(response.data);
-  //     // console.log("JobList: ", jobsList!.data)
-  //     console.log("JobListz: ", jobsList);
+  //     //
+  //
   //   } catch (err) {
-  //     console.log(err);
+  //
   //   }
   // }
 
@@ -59,13 +56,11 @@ function Jobs() {
 
   function saveJob(job: any) {
     try {
-      axios.post("http://localhost:3001/save", {
+      axios.post("http://localhost:3001/arch/save", {
         job: job,
         user: loggedUser(),
       });
-    } catch (err: any) {
-      console.log("err: ", err.message);
-    }
+    } catch (err: any) {}
   }
 
   function loggedUser() {
@@ -74,6 +69,7 @@ function Jobs() {
       isLogged: boolean;
       user: string;
     };
+    console.log("here");
 
     return parsed.user;
   }

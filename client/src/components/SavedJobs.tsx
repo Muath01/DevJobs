@@ -6,6 +6,8 @@ import { RootState } from "../Redux/store";
 function SavedJobs() {
   const test = useSelector((state: RootState) => state.saveJobs);
 
+  console.log("Saved Jobs: ", test);
+
   return (
     <>
       <div className="bg-purple-300 relative h-[12rem] w-full border md:rounded-bl-[20%] md:rounded-br-[20%] "></div>
