@@ -23,9 +23,12 @@ function LoginPage() {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:3001/auth/login", {
-        loginInfo: loginInfo,
-      });
+      const response = await axios.post(
+        "https://devjobs-klnj.onrender.com/auth/login",
+        {
+          loginInfo: loginInfo,
+        }
+      );
 
       if (!response.data.success) {
         dispatch(setSigned(response.data.success));

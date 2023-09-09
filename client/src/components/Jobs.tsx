@@ -27,14 +27,14 @@ function Jobs() {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
-    fetch("http://localhost:3001/job/display")
+    fetch("https://devjobs-klnj.onrender.com/job/display")
       .then((res) => res.json())
       .then((data) => setItems(data));
   }, []);
 
   // async function bringJobsList() {
   //   try {
-  //     const response = await axios.get("http://localhost:3001/jobs", {
+  //     const response = await axios.get("https://devjobs-klnj.onrender.com/jobs", {
   //       params: {},
   //     });
 
@@ -56,7 +56,7 @@ function Jobs() {
 
   function saveJob(job: any) {
     try {
-      axios.post("http://localhost:3001/arch/save", {
+      axios.post("https://devjobs-klnj.onrender.com/arch/save", {
         job: job,
         user: loggedUser(),
       });

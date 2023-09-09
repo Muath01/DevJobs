@@ -36,7 +36,7 @@ function NavBar() {
       };
 
       const response: JobSchema = await axios.get(
-        "http://localhost:3001/arch/saved",
+        "https://devjobs-klnj.onrender.com/arch/saved",
         {
           params: {
             body: parsed.user,

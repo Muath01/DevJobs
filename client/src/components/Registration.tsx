@@ -17,7 +17,7 @@ function Registration() {
 
   function register() {
     try {
-      axios.post("http://localhost:3001/auth/register", {
+      axios.post("https://devjobs-klnj.onrender.com/auth/register", {
         userSignUpInfo: newUser,
       });
     } catch (err: any) {}

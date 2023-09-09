@@ -17,7 +17,7 @@ function ListJob() {
   async function ListJob(e: any) {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:3001/job/list", {
+      await axios.post("https://devjobs-klnj.onrender.com/job/list", {
         newJob: newJob,
       });
     } catch (error: any) {}
@@ -27,7 +27,7 @@ function ListJob() {
   //     e.preventDefault();
   //     try {
   //
-  //       const response = await axios.post("http://localhost:3001/newJob", {
+  //       const response = await axios.post("https://devjobs-klnj.onrender.com/newJob", {
   //         newJob: newJob,
   //       });
 
