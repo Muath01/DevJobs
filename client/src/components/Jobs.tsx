@@ -30,6 +30,8 @@ function Jobs() {
     fetch("https://devjobs-klnj.onrender.com/job/display")
       .then((res) => res.json())
       .then((data) => setItems(data));
+
+    console.log("items: ", items);
   }, []);
 
   // async function bringJobsList() {

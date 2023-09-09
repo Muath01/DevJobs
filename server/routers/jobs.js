@@ -4,6 +4,7 @@ import express from "express";
 const router = express.Router();
 
 router.get("/display", async (req, res) => {
+  console.log("display job");
   try {
     const jobs = await JobModel.find();
 
@@ -27,10 +28,7 @@ router.post("/list", async (req, res) => {
     remote: remote == "Remote" ? true : false,
   });
 
-  console.log("new Listing: ", newListing);
-
   await newListing.save();
-  console.log("new Listing Below: ", newListing);
 
   res.json(newListing);
 });
