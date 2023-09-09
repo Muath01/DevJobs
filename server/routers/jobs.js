@@ -27,7 +27,10 @@ router.post("/list", async (req, res) => {
     remote: remote == "Remote" ? true : false,
   });
 
+  console.log("new Listing: ", newListing);
+
   await newListing.save();
+  console.log("new Listing Below: ", newListing);
 
   res.json(newListing);
 });
