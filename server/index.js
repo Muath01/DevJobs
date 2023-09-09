@@ -18,12 +18,12 @@ mongoose.connect(
 );
 
 // JobModel.deleteMany({})
-// .then(() => {
-//   console.log("All documents deleted successfully.");
-// })
-// .catch((err) => {
-//   console.log("error", err);
-// });
+//   .then(() => {
+//     console.log("All documents deleted successfully.");
+//   })
+//   .catch((err) => {
+//     console.log("error", err);
+//   });
 
 // SavedJobsModel.deleteMany({})
 //   .then(() => {

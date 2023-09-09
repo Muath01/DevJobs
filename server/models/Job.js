@@ -6,8 +6,8 @@ const jobSchema = mongoose.Schema({
   company: { type: String },
   location: { type: String },
   remote: { type: Boolean },
-  salaryA: { type: Number },
-  salaryB: { type: Number },
+  salaryA: { type: String },
+  salaryB: { type: String },
 });
 
 export const JobModel = mongoose.model("jobs", jobSchema);

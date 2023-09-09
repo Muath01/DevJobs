@@ -1,5 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+if (!localStorage.getItem("loggedUser")) {
+  let whoLogged = {
+    isLogged: false,
+    user: "",
+  };
+  let whoLoggedObjectString = JSON.stringify(whoLogged);
+  localStorage.setItem("loggedUser", whoLoggedObjectString);
+} else {
+  console.log("there is a logged user");
+}
 export interface signedState {
   signed: Boolean;
 }

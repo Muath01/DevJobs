@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import Jobs from "./Jobs";
 import LoginPage from "./LoginPage";
 
@@ -7,6 +8,8 @@ function Home() {
     isLogged: boolean;
     user: string;
   };
+
+  useEffect(() => {}, [parsed]);
 
   console.log("Inside Home... ");
 
