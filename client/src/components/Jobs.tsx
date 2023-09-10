@@ -34,23 +34,6 @@ function Jobs() {
     console.log("items: ", items);
   }, []);
 
-  // async function bringJobsList() {
-  //   try {
-  //     const response = await axios.get("https://devjobs-klnj.onrender.com/jobs", {
-  //       params: {},
-  //     });
-
-  //
-  //
-
-  //     setJobsList(response.data);
-  //     //
-  //
-  //   } catch (err) {
-  //
-  //   }
-  // }
-
   function focusInput() {
     if (!inputRef.current) return;
     inputRef.current.focus();
@@ -115,6 +98,7 @@ function Jobs() {
             {items &&
               items
                 .slice(0, visible)
+                .reverse()
                 .filter((job) => {
                   if (
                     search.toLowerCase() == "" &&

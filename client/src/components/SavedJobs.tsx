@@ -4,9 +4,9 @@ import { useSelector } from "react-redux";
 import { RootState } from "../Redux/store";
 
 function SavedJobs() {
-  const test = useSelector((state: RootState) => state.saveJobs);
+  const savedJobs = useSelector((state: RootState) => state.saveJobs);
 
-  console.log("Saved Jobs: ", test);
+  console.log("Saved Jobs: ", savedJobs);
 
   return (
     <>
@@ -16,8 +16,8 @@ function SavedJobs() {
           className=" relative top-20 grid  grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  bg-[#efefef] w-full  md:w-[80%] justify-center
         "
         >
-          {test &&
-            test.map((job) => (
+          {savedJobs &&
+            savedJobs.reverse().map((job) => (
               <div className="bg-white m-2 mt-14 h-[15rem] rounded-sm  relative ">
                 <div className="w-1/6 absolute top-[-35px] left-[50%] translate-x-[-50%] border border-black h-16 flex items-center justify-center bg-purple-400 font-bold text-[20px]">
                   Job
