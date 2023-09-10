@@ -19,10 +19,9 @@ function SavedJobs() {
           {test &&
             test.map((job) => (
               <div className="bg-white m-2 mt-14 h-[15rem] rounded-sm  relative ">
-                <img
-                  src={nike}
-                  className="w-1/6 absolute top-[-35px] left-[50%] translate-x-[-50%] border border-black"
-                />
+                <div className="w-1/6 absolute top-[-35px] left-[50%] translate-x-[-50%] border border-black h-16 flex items-center justify-center bg-purple-400 font-bold text-[20px]">
+                  Job
+                </div>
                 <div className=" h-[60%]  w-full absolute bottom-7  translate-y-[-5%] flex flex-col gap-1 items-start px-10">
                   <h1 className=" text-[16px]  text-gray-400 mb-1">
                     {job.type}
