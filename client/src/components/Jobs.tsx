@@ -73,12 +73,12 @@ function Jobs() {
               ref={inputRef}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search for job"
-              className="p-5 sm:w-[100%] w-[80%] outline-none "
+              className="p-5 sm:w-[100%] w-[80%] outline-none bg-white text-black "
             />
             <input
               onChange={(e) => setCitySearch(e.target.value)}
               placeholder="filter by location"
-              className="p-5 rounded-r-sm sm:w-[100%] w-[80%] outline-none border-l border-black md:block hidden"
+              className="p-5 rounded-r-sm sm:w-[100%] w-[80%] outline-none border-l border-black md:block hidden bg-white text-black"
             />
             <div className="bg-white relative flex justify-center items-center w-1/5">
               <button
