@@ -32,12 +32,12 @@ function LoginPage() {
 
       if (!response.data.success) {
         dispatch(setSigned(response.data.success));
-        location.reload();
       } else {
         let whoLogged = { isLogged: true, user: response.data.user };
         let whoLoggedObjectString = JSON.stringify(whoLogged);
         localStorage.setItem("loggedUser", whoLoggedObjectString);
         dispatch(setSigned(response.data.success));
+        location.reload();
       }
     } catch (error: any) {}
   }
