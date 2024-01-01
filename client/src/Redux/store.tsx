@@ -1,9 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
-import signedReducer from "./singedReducer";
 import jobReducer from "./jobReducer";
 export const store = configureStore({
   reducer: {
-    setSigned: signedReducer,
     saveJobs: jobReducer,
   },
 });

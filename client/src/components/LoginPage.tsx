@@ -2,12 +2,17 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux/es/exports";
-import { setSigned } from "../Redux/singedReducer";
+import { useAuth } from "./Context/AuthContext";
 
+interface LoginInfo {
+  email: string;
+  password: string;
+}
 function LoginPage() {
+  const { login: signin }: any = useAuth();
   const navigate = useNavigate();
 
-  const [loginInfo, setLoginInfo] = useState({});
+  const [loginInfo, setLoginInfo] = useState<Partial<LoginInfo>>({});
 
   const dispatch = useDispatch();
 
@@ -19,26 +24,13 @@ function LoginPage() {
     });
   }
 
+  console.log(loginInfo);
   async function login(e: any) {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-        "https://devjobs-klnj.onrender.com/auth/login",
-        {
-          loginInfo: loginInfo,
-        }
-      );
-
-      if (!response.data.success) {
-        dispatch(setSigned(response.data.success));
-      } else {
-        let whoLogged = { isLogged: true, user: response.data.user };
-        let whoLoggedObjectString = JSON.stringify(whoLogged);
-        localStorage.setItem("loggedUser", whoLoggedObjectString);
-        dispatch(setSigned(response.data.success));
-        location.reload();
-      }
+      signin(loginInfo.email, loginInfo.password);
+      navigate("/");
     } catch (error: any) {}
   }
   return (

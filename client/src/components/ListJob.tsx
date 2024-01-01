@@ -1,8 +1,10 @@
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function ListJob() {
   const [newJob, setNewJob] = useState({});
+  const navigate = useNavigate();
 
   async function createNewJob(e: any) {
     const { name, value, innerText } = e.target;
@@ -16,27 +18,21 @@ function ListJob() {
 
   async function ListJob(e: any) {
     e.preventDefault();
+
     try {
-      await axios.post("https://devjobs-klnj.onrender.com/job/list", {
-        newJob: newJob,
-      });
-    } catch (error: any) {}
+      const response = await axios.post(
+        // "https://devjobs-klnj.onrender.com/job/list",
+        "http://localhost:3001/job/list",
+        {
+          newJob: newJob,
+        }
+      );
+
+      navigate("/");
+    } catch (error: any) {
+      console.error("error: ", error);
+    }
   }
-
-  //   async function sendNewHotelInformation(e: any) {
-  //     e.preventDefault();
-  //     try {
-  //
-  //       const response = await axios.post("https://devjobs-klnj.onrender.com/newJob", {
-  //         newJob: newJob,
-  //       });
-
-  //
-  //       dispatch(setHotel(response.data));
-  //     } catch (error: any) {
-  //
-  //     }
-  //   }
 
   return (
     <div className="h-full w-full bg-yellow-200 flex justify-center items-center">

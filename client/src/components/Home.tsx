@@ -1,19 +1,14 @@
 import { useEffect } from "react";
 import Jobs from "./Jobs";
 import LoginPage from "./LoginPage";
+import { useAuth } from "./Context/AuthContext";
 
 function Home() {
-  const isLoggedIn = localStorage.getItem("loggedUser");
-  const parsed = JSON.parse(isLoggedIn!) as {
-    isLogged: boolean;
-    user: string;
-  };
-
-  useEffect(() => {}, [parsed]);
+  const { currentUser }: any = useAuth();
 
   return (
     <div className="h-full relative ">
-      {parsed.isLogged ? <Jobs /> : <LoginPage />}
+      {currentUser ? <Jobs /> : <LoginPage />}
     </div>
   );
 }

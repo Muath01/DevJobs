@@ -17,7 +17,7 @@ function SavedJobs() {
         "
         >
           {savedJobs &&
-            savedJobs.reverse().map((job) => (
+            [...savedJobs].reverse().map((job) => (
               <div className="bg-white m-2 mt-14 h-[15rem] rounded-sm  relative ">
                 <div className="w-1/6 absolute top-[-35px] left-[50%] translate-x-[-50%] border border-black h-16 flex items-center justify-center bg-purple-400 font-bold text-[20px]">
                   Job

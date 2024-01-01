@@ -3,6 +3,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux/es/exports";
 import { setJobs } from "../Redux/jobReducer";
+import { useAuth } from "./Context/AuthContext";
+import { current } from "@reduxjs/toolkit";
 
 interface JobSchema {
   data: {
@@ -17,15 +19,10 @@ interface JobSchema {
 }
 
 function NavBar() {
+  const { logout, currentUser }: any = useAuth();
   const [hidden, setHidden] = useState(true);
 
   const dispatch = useDispatch();
-
-  const userNameLocal = localStorage.getItem("loggedUser");
-  const parsedLocalStorage = JSON.parse(userNameLocal!) as {
-    isLogged: Boolean;
-    user: String;
-  };
 
   async function getSavedJobs() {
     try {
@@ -49,35 +46,23 @@ function NavBar() {
   }
 
   //function to set the loggedin status to false
-  function signOut() {
+  async function signOut() {
     // Retrieve the string from local storage
-    const isLoggedIn = localStorage.getItem("loggedUser");
-
-    // type assertion aviod null > string error
-    const parsed = JSON.parse(isLoggedIn!) as {
-      isLogged: boolean;
-      user: string;
-    };
-
-    //
-    parsed.isLogged = false;
-
-    // stringify that parse data
-    const updatedObjectString = JSON.stringify(parsed);
-
-    // store back to local storage
-    localStorage.setItem("loggedUser", updatedObjectString);
+    try {
+      await logout();
+    } catch (error) {
+      console.log("error: ", error);
+    }
   }
 
+  console.log(currentUser);
   return (
     <div className="relative">
       <nav className="bg-white border-gray-200 dark:bg-gray-900">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <Link to="/" className="flex items-center">
             <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-              {parsedLocalStorage.isLogged
-                ? parsedLocalStorage.user
-                : "Please Log in"}
+              {currentUser ? currentUser.displayName : "Please Log in"}
             </span>
           </Link>
           <button
@@ -153,7 +138,6 @@ function NavBar() {
                   onClick={() => {
                     signOut();
                     setHidden(!hidden);
-                    location.reload();
                   }}
                   to="#"
                   className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-purple-700 md:p-0 dark:text-white md:dark:hover:text-purple-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"

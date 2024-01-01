@@ -1,10 +1,12 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "./Context/AuthContext";
 
 function Registration() {
   const [newUser, setNewUser] = useState<any>({});
 
+  const { signup, currentUser }: any = useAuth();
   const [username, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -26,21 +28,14 @@ function Registration() {
       [name]: value,
     });
   }
-  console.log(newUser);
 
   function register() {
-    console.log("here");
     try {
-      axios.post("https://devjobs-klnj.onrender.com/auth/register", {
-        userSignUpInfo: newUser,
-      });
+      signup(newUser.email, newUser.password, newUser.username);
 
-      console.log("here2");
-      setUserName("");
-      setEmail("");
-      setPassword("");
+      navigate("/");
     } catch (err: any) {
-      console.log(err.message);
+      console.error("here: ", err.message);
     }
   }
   return (
